@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import Superhero from './components/Superhero/Superhero';
-
+import styled from 'styled-components';
 import Superheros from './components/Superheros/Superheros';
 
 export default function App() {
@@ -33,7 +33,8 @@ export default function App() {
 	const onClickHandler = (nom) => {
 		setSuperheroPreferer(nom);
 	};
-	const saveTheHero = () => {
+	const saveTheHero = (e) => {
+		e.preventDefault();
 		setNewHero((ancienHero) => ({
 			...ancienHero,
 			nom: nom.current.value,
@@ -51,9 +52,26 @@ export default function App() {
 			newphoto: photo.current.value,
 		}));
 	};
+	const Form = styled.div`
+		padding: 15px;
+		border: 1px solid black;
+		background-color: ${newHero.nom != 'Anonyme'
+			? 'green'
+			: 'transparent'};
+		&:hover {
+			border: 1px solid #ed1d24;
+		}
+	`;
 	return (
 		<main>
-			<h1>Marvel</h1>
+			<img
+				src="https://logos-world.net/wp-content/uploads/2020/11/Marvel-Logo-2000-2012.png"
+				alt="logo marvel red"
+				style={{
+					width: 100,
+				}}
+				className="mx-auto mt-10 w-28"
+			/>
 			<Superheros>
 				<Superhero
 					Name="Iron Man"
@@ -90,7 +108,6 @@ export default function App() {
 						dans le film Thor (2011) et est depuis devenu un
 						incontournable du MCU. En 2024 , le personnage est apparu
 						dans sept films, la série live-action Loki (2021-2023), la
-						série animée What If...? (2021-2024), et le court
 						métrage d'animation The Good, the Bart, and the Loki
 						(2021)."
 					photo="https://m.media-amazon.com/images/M/MV5BM2FiMjQ0ZjAtYzc1OC00NzgzLWIyNmQtYmIwYjdhZWM5MmRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
@@ -137,27 +154,41 @@ export default function App() {
 						newHero.details != '' ? newHero.details : undefined
 					}
 				/>
-				<div
-					style={{
-						padding: 15,
-						border: '1px solid black',
-					}}
-				>
-					<h3 style={{ textAlign: 'center' }}>
+				<form className="p-[15px] bg-red-marvel text-white">
+					<h3 className="text-center uppercase font-semibold my-5">
 						Créez votre propre super-héros
 					</h3>
 
-					<label htmlFor="photo">Image</label>
+					<label className="label" htmlFor="photo">
+						Image
+					</label>
 
-					<input type="text" id="photo" name="photo" ref={photo} />
+					<input
+						className="input"
+						type="text"
+						id="photo"
+						name="photo"
+						ref={photo}
+					/>
 
-					<label htmlFor="nom">Nom</label>
+					<label className="label" htmlFor="nom">
+						Nom
+					</label>
 
-					<input type="text" id="nom" name="nom" ref={nom} />
+					<input
+						className=" input"
+						type="text"
+						id="nom"
+						name="nom"
+						ref={nom}
+					/>
 
-					<label htmlFor="descriptions">Descriptions</label>
+					<label className="label" htmlFor="descriptions">
+						Descriptions
+					</label>
 
 					<textarea
+						className="input"
 						name="descriptions"
 						id="descriptions"
 						ref={description}
@@ -166,6 +197,7 @@ export default function App() {
 					<label htmlFor="details">Details</label>
 
 					<textarea
+						className="input"
 						name="details"
 						id="details"
 						ref={detail}
@@ -177,11 +209,13 @@ export default function App() {
 							justifyContent: 'end',
 							marginTop: 5,
 						}}
-						onClick={saveTheHero}
+						onClick={(e) => saveTheHero(e)}
 					>
-						<button>Modifier</button>
+						<button className="border-red-900 text-white px-3 py-1 rounded mt-5 hover:bg-red-400 duration-150">
+							Modifier
+						</button>
 					</div>
-				</div>
+				</form>
 				{/* */}
 			</Superheros>
 		</main>

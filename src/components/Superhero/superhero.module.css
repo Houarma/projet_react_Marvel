@@ -2,7 +2,7 @@
 	background-color: #f1f1f1;
 	padding: 17px;
 }
-.superhero h2 {
+:global(h2) {
 	text-align: center;
 }
 .superhero img {
@@ -19,9 +19,7 @@
 	cursor: pointer;
 	display: inline-block;
 }
-.read-more:hover {
-	color: #ed1d24;
-}
+
 .superheroPreferer {
 	background-color: #fde8e9;
 }

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import './superhero.css';
+import { useEffect, useState } from 'react';
+import classes from './superhero.module.css';
 import { createPortal } from 'react-dom';
 export default function Superhero({
 	Name = '',
@@ -9,14 +9,22 @@ export default function Superhero({
 	details = 'Aucun nouveau details',
 	onClickHandler,
 	estLePreferer,
-	...props
 }) {
 	const [showDetails, setShowDetails] = useState(false);
 	const [showModals, setShowModal] = useState(false);
+	useEffect(() => {
+		if (showModals) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = 'unset';
+		}
+	}, [showModals]);
 
 	return (
 		<div
-			className={`superhero ${estLePreferer && 'superheroPreferer'}`}
+			className={`${classes.superhero} ${
+				estLePreferer && classes.superheroPreferer
+			}`}
 			onClick={() => {
 				onClickHandler(Name);
 			}}
@@ -61,12 +69,17 @@ export default function Superhero({
 					e.stopPropagation();
 					setShowModal(true);
 				}}
+				className="text-xl font-bold"
 			>
 				{Name}
 			</h2>
 			<p>{Description}</p>
 			<div
-				className="read-more"
+				className={` font-bold mb-[10px] cursor-pointer inline-block ${
+					showDetails == false
+						? `hover:text-red-marvel`
+						: `hover:text-blue-400`
+				} `}
 				onClick={(event) => {
 					setShowDetails((stateprecedent) => !stateprecedent);
 					event.stopPropagation();

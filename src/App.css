@@ -9,11 +9,16 @@ input {
 	width: 100%;
 
 	border-radius: 5px;
-	font-size: 24px;
 }
 textarea {
 	display: inline-block;
 	margin: 0px 0px 10px 0;
 	width: 100%;
 	border-radius: 5px;
+}
+.input {
+	@apply px-3 py-1 bg-neutral-100 rounded text-gray-950;
+}
+.label {
+	@apply font-semibold mb-2 text-sm;
 }
